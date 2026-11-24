@@ -178,17 +178,21 @@ class ValidationView(QWidget):
             f"""
             QGroupBox {{
                 background-color: {COLORS.bg_card};
-                border: 1px solid {COLORS.border};
+                border: 1.5px solid {COLORS.border};
                 border-radius: 8px;
-                margin-top: 10px;
-                padding-top: 18px;
+                margin-top: 14px;
+                padding-top: 20px;
                 font-weight: 600;
                 font-size: 13px;
             }}
             QGroupBox::title {{
                 subcontrol-origin: margin;
+                subcontrol-position: top left;
                 left: 14px;
-                padding: 0 6px;
+                padding: 2px 8px;
+                background-color: {COLORS.bg_card};
+                color: {COLORS.text_primary};
+                border-radius: 4px;
             }}
             """
         )
@@ -238,30 +242,30 @@ class ValidationView(QWidget):
         adv_layout.addWidget(self._field_out)
 
         main_layout.addWidget(self._group_advanced)
+        main_layout.addStretch()
 
-        # Kartu Eksekusi & Progres
-        card_action = Card()
-        act_layout = card_action.layout()
+        scroll_area.setWidget(content_widget)
+        outer_layout.addWidget(scroll_area, stretch=1)
 
-        row_action = QHBoxLayout()
-        row_action.setContentsMargins(0, 0, 0, 0)
-        row_action.setSpacing(12)
-        self._btn_start = PrimaryButton("▶ MULAI VALIDASI")
-        self._btn_start.setMinimumHeight(44)
-        self._btn_start.clicked.connect(self._mulai_validasi)
-        row_action.addWidget(self._btn_start, stretch=1)
+        # Bilah Aksi Bawah (Sticky Footer dengan Border Atas yang Tegas)
+        self._bottom_bar = QFrame()
+        self._bottom_bar.setObjectName("validation_bottom_bar")
+        self._bottom_bar.setStyleSheet(
+            f"""
+            QFrame#validation_bottom_bar {{
+                background-color: {COLORS.bg_card};
+                border-top: 1.5px solid {COLORS.border};
+            }}
+            """
+        )
+        bottom_layout = QVBoxLayout(self._bottom_bar)
+        bottom_layout.setContentsMargins(24, 14, 24, 14)
+        bottom_layout.setSpacing(10)
 
-        self._btn_cancel = DangerButton("Batal")
-        self._btn_cancel.setMinimumHeight(44)
-        self._btn_cancel.clicked.connect(self._batalkan_validasi)
-        self._btn_cancel.hide()
-        row_action.addWidget(self._btn_cancel)
-        act_layout.addLayout(row_action)
-
-        # Panel Progres
+        # Panel Progres (tampil saat validasi berjalan)
         self._progress_panel = QWidget()
         prog_layout = QVBoxLayout(self._progress_panel)
-        prog_layout.setContentsMargins(0, 8, 0, 0)
+        prog_layout.setContentsMargins(0, 0, 0, 0)
         prog_layout.setSpacing(6)
 
         row_status = QHBoxLayout()
@@ -285,13 +289,33 @@ class ValidationView(QWidget):
         prog_layout.addWidget(self._progress_bar)
 
         self._progress_panel.hide()
-        act_layout.addWidget(self._progress_panel)
+        bottom_layout.addWidget(self._progress_panel)
 
-        main_layout.addWidget(card_action)
-        main_layout.addStretch()
+        # Baris Tombol Aksi Bawah
+        row_action = QHBoxLayout()
+        row_action.setContentsMargins(0, 0, 0, 0)
+        row_action.setSpacing(12)
 
-        scroll_area.setWidget(content_widget)
-        outer_layout.addWidget(scroll_area)
+        self._lbl_bottom_hint = QLabel("Pastikan file rekapan acuan dan folder target sudah dipilih.")
+        self._lbl_bottom_hint.setStyleSheet(
+            f"font-size: 12px; color: {COLORS.text_secondary};"
+        )
+        row_action.addWidget(self._lbl_bottom_hint)
+        row_action.addStretch()
+
+        self._btn_cancel = DangerButton("Batal")
+        self._btn_cancel.setFixedSize(110, 42)
+        self._btn_cancel.clicked.connect(self._batalkan_validasi)
+        self._btn_cancel.hide()
+        row_action.addWidget(self._btn_cancel)
+
+        self._btn_start = PrimaryButton("▶ Mulai Validasi")
+        self._btn_start.setFixedSize(190, 42)
+        self._btn_start.clicked.connect(self._mulai_validasi)
+        row_action.addWidget(self._btn_start)
+
+        bottom_layout.addLayout(row_action)
+        outer_layout.addWidget(self._bottom_bar)
 
     def refresh_profiles(self) -> None:
         """Segarkan daftar profil dari disk."""

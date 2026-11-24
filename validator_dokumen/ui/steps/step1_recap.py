@@ -10,8 +10,6 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, ClassVar
-
-import openpyxl
 from PySide6.QtCore import (
     QAbstractTableModel,
     QModelIndex,
@@ -198,6 +196,7 @@ class Step1Recap(QWidget):
 
         self._combo_sheet = QComboBox()
         self._combo_sheet.setEnabled(False)
+        self._combo_sheet.addItem("(Pilih berkas rekapan terlebih dahulu)")
         self._combo_sheet.setMinimumHeight(38)
         field_sheet = LabeledField("Sheet Excel", self._combo_sheet)
         row_options.addWidget(field_sheet, stretch=2)
@@ -290,6 +289,7 @@ class Step1Recap(QWidget):
         if p.suffix.lower() in [".xlsx", ".xls"]:
             self._combo_sheet.clear()
             try:
+                import openpyxl  # type: ignore[import-untyped]
                 wb = openpyxl.load_workbook(path, read_only=True)
                 for s in wb.sheetnames:
                     self._combo_sheet.addItem(s)

@@ -151,7 +151,7 @@ class MainWindow(QMainWindow):
             f"""
             QFrame {{
                 background-color: {COLORS.bg_card};
-                border-bottom: 1px solid {COLORS.border};
+                border-bottom: 1.5px solid {COLORS.border};
             }}
             """
         )
@@ -183,20 +183,20 @@ class MainWindow(QMainWindow):
         # Stacked Widget (Multi-Screen)
         self._stacked = QStackedWidget()
 
-        # Layar 0: Siapkan Profil (ProfileWizard 5 Langkah)
-        self._wizard = ProfileWizard(self._ps, self._rs, self._vs, self)
-        self._wizard.profile_saved.connect(self._on_profile_saved)
-        self._wizard.open_validation_view.connect(lambda: self._switch_nav(1))
-        self._stacked.addWidget(self._wizard)
+        # Layar 0: Placeholder untuk Siapkan Profil (Diinisialisasi secara malas / lazy-loaded)
+        self._wizard_widget: ProfileWizard | None = None
+        self._wizard_placeholder = QWidget()
+        self._stacked.addWidget(self._wizard_placeholder)
 
         # Layar 1: Validasi
         self._view_validasi = ValidationView(self._ps, self._rs, self._vs, self)
         self._view_validasi.validation_finished.connect(self._on_validation_finished)
         self._stacked.addWidget(self._view_validasi)
 
-        # Layar 2: Hasil
-        self._view_hasil = ResultsView(self)
-        self._stacked.addWidget(self._view_hasil)
+        # Layar 2: Placeholder Hasil (Lazy-loaded saat hasil validasi ada atau navigasi diklik)
+        self._view_hasil_widget: ResultsView | None = None
+        self._results_placeholder = QWidget()
+        self._stacked.addWidget(self._results_placeholder)
 
         content_layout.addWidget(self._stacked, stretch=1)
         root_layout.addWidget(content_area, stretch=1)
@@ -240,14 +240,38 @@ class MainWindow(QMainWindow):
         btn.clicked.connect(lambda: self._switch_nav(page_idx))
         return btn
 
+    @property
+    def _wizard(self) -> ProfileWizard:
+        """Mengembalikan instance ProfileWizard, dimuat secara lazy saat pertama kali diakses."""
+        if self._wizard_widget is None:
+            self._wizard_widget = ProfileWizard(self._ps, self._rs, self._vs, self)
+            self._wizard_widget.profile_saved.connect(self._on_profile_saved)
+            self._wizard_widget.open_validation_view.connect(lambda: self._switch_nav(1))
+            self._stacked.removeWidget(self._wizard_placeholder)
+            self._stacked.insertWidget(0, self._wizard_widget)
+        return self._wizard_widget
+
+    @property
+    def _view_hasil(self) -> ResultsView:
+        """Mengembalikan instance ResultsView, dimuat secara lazy saat pertama kali diakses."""
+        if self._view_hasil_widget is None:
+            self._view_hasil_widget = ResultsView(self)
+            self._stacked.removeWidget(self._results_placeholder)
+            self._stacked.insertWidget(2, self._view_hasil_widget)
+        return self._view_hasil_widget
+
     def _switch_nav(self, page_idx: int) -> None:
-        self._stacked.setCurrentIndex(page_idx)
         if page_idx == 0:
+            # Pastikan wizard diinisialisasi saat pertama kali layar 0 dibuka
+            _ = self._wizard
             self._btn_nav_profil.setChecked(True)
         elif page_idx == 1:
             self._btn_nav_validasi.setChecked(True)
         elif page_idx == 2:
+            # Pastikan layar hasil diinisialisasi saat pertama kali layar 2 dibuka
+            _ = self._view_hasil
             self._btn_nav_hasil.setChecked(True)
+        self._stacked.setCurrentIndex(page_idx)
 
     def _setup_menu_bar(self) -> None:
         bar = self.menuBar()

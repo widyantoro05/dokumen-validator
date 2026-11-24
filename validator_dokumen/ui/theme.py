@@ -26,9 +26,9 @@ class ThemeColors:
     bg_selected: str = "#EFF6FF"
 
     # Border
-    border: str = "#E2E8F0"
+    border: str = "#CBD5E1"
     border_focus: str = "#2563EB"
-    border_subtle: str = "#CBD5E1"
+    border_subtle: str = "#94A3B8"
 
     # Teks
     text_primary: str = "#1E293B"
@@ -104,11 +104,51 @@ def generate_qss() -> str:
         font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
         font-size: 13px;
         color: {COLORS.text_primary};
-        background-color: transparent;
     }}
 
     QMainWindow, QDialog {{
         background-color: {COLORS.bg_app};
+    }}
+
+    /* Menu Bar & Menu Popups (Sleek dark theme matching sidebar) */
+    QMenuBar {{
+        background-color: {COLORS.bg_sidebar};
+        color: #E2E8F0;
+        border-bottom: 1.5px solid #1E293B;
+        padding: 2px 6px;
+        font-size: 12px;
+        font-weight: 500;
+    }}
+    QMenuBar::item {{
+        background: transparent;
+        padding: 5px 12px;
+        border-radius: 4px;
+        color: #CBD5E1;
+    }}
+    QMenuBar::item:selected, QMenuBar::item:pressed {{
+        background-color: {COLORS.bg_sidebar_hover};
+        color: #FFFFFF;
+    }}
+    QMenu {{
+        background-color: {COLORS.bg_sidebar};
+        color: #F8FAFC;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        padding: 4px;
+    }}
+    QMenu::item {{
+        padding: 6px 20px 6px 12px;
+        border-radius: 4px;
+        color: #F8FAFC;
+    }}
+    QMenu::item:selected {{
+        background-color: {COLORS.accent};
+        color: #FFFFFF;
+    }}
+    QMenu::separator {{
+        height: 1px;
+        background-color: #334155;
+        margin: 4px 8px;
     }}
 
     /* Scrollbars */
@@ -151,7 +191,7 @@ def generate_qss() -> str:
     /* Input Controls */
     QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox {{
         background-color: {COLORS.bg_input};
-        border: 1px solid {COLORS.border};
+        border: 1.5px solid {COLORS.border};
         border-radius: 6px;
         padding: 6px 10px;
         min-height: 24px;
@@ -160,12 +200,16 @@ def generate_qss() -> str:
         selection-background-color: {COLORS.accent};
         selection-color: {COLORS.text_white};
     }}
+    QLineEdit:hover, QComboBox:hover, QSpinBox:hover, QDoubleSpinBox:hover {{
+        border-color: {COLORS.border_subtle};
+    }}
     QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus {{
         border: 1.5px solid {COLORS.border_focus};
     }}
     QLineEdit:disabled, QComboBox:disabled {{
-        background-color: {COLORS.bg_app};
-        color: {COLORS.text_muted};
+        background-color: #F8FAFC;
+        border: 1.5px solid {COLORS.border};
+        color: {COLORS.text_secondary};
     }}
 
     /* ComboBox dropdown */
@@ -176,7 +220,7 @@ def generate_qss() -> str:
         subcontrol-origin: padding;
         subcontrol-position: top right;
         width: 26px;
-        border-left: 1px solid {COLORS.border};
+        border-left: 1.5px solid {COLORS.border};
         border-top-right-radius: 6px;
         border-bottom-right-radius: 6px;
     }}
@@ -186,19 +230,40 @@ def generate_qss() -> str:
     }}
     QComboBox QAbstractItemView {{
         background-color: {COLORS.bg_card};
-        border: 1px solid {COLORS.border};
+        border: 1.5px solid {COLORS.border};
         border-radius: 6px;
         selection-background-color: {COLORS.bg_selected};
         selection-color: {COLORS.accent};
         padding: 4px;
     }}
 
+    /* Group Boxes */
+    QGroupBox {{
+        background-color: {COLORS.bg_card};
+        border: 1.5px solid {COLORS.border};
+        border-radius: 8px;
+        margin-top: 14px;
+        padding-top: 20px;
+        font-weight: 600;
+        font-size: 13px;
+        color: {COLORS.text_primary};
+    }}
+    QGroupBox::title {{
+        subcontrol-origin: margin;
+        subcontrol-position: top left;
+        left: 14px;
+        padding: 2px 8px;
+        background-color: {COLORS.bg_card};
+        color: {COLORS.text_primary};
+        border-radius: 4px;
+    }}
+
     /* Tables (Model/View) */
     QTableView {{
         background-color: {COLORS.bg_card};
-        border: 1px solid {COLORS.border};
+        border: 1.5px solid {COLORS.border};
         border-radius: 8px;
-        gridline-color: {COLORS.border};
+        gridline-color: #E2E8F0;
         selection-background-color: {COLORS.bg_selected};
         selection-color: {COLORS.text_primary};
         outline: none;
@@ -206,7 +271,7 @@ def generate_qss() -> str:
     QTableView::item {{
         padding: 6px 10px;
         min-height: 36px;
-        border-bottom: 1px solid {COLORS.bg_app};
+        border-bottom: 1px solid #F1F5F9;
     }}
     QTableView::item:hover {{
         background-color: {COLORS.bg_hover};
@@ -216,12 +281,13 @@ def generate_qss() -> str:
         color: {COLORS.accent};
     }}
     QHeaderView::section {{
-        background-color: #F8FAFC;
-        color: {COLORS.text_secondary};
+        background-color: #F1F5F9;
+        color: {COLORS.text_primary};
         font-weight: 600;
         padding: 8px 10px;
         border: none;
-        border-bottom: 2px solid {COLORS.border};
+        border-right: 1px solid {COLORS.border};
+        border-bottom: 1.5px solid {COLORS.border};
     }}
 
     /* Splitters */

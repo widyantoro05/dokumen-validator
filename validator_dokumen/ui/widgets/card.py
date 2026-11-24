@@ -20,7 +20,7 @@ class Card(QFrame):
             f"""
             Card {{
                 background-color: {COLORS.bg_card};
-                border: 1px solid {COLORS.border};
+                border: 1.5px solid {COLORS.border};
                 border-radius: 8px;
             }}
             """

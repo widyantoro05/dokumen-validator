@@ -62,6 +62,14 @@ class StepperBar(QWidget):
         super().__init__(parent)
         self._current_step = current_step
         self.setFixedHeight(54)
+        self.setStyleSheet(
+            f"""
+            StepperBar {{
+                background-color: {COLORS.bg_card};
+                border-bottom: 1.5px solid {COLORS.border};
+            }}
+            """
+        )
         self._buttons: list[QPushButton] = []
         self._setup_ui()
 
@@ -81,7 +89,7 @@ class StepperBar(QWidget):
 
             if i < len(self.STEP_TITLES) - 1:
                 lbl_arrow = QLabel("→")
-                lbl_arrow.setStyleSheet(f"color: {COLORS.border}; font-weight: bold;")
+                lbl_arrow.setStyleSheet("color: #94A3B8; font-weight: bold; font-size: 13px;")
                 layout.addWidget(lbl_arrow)
 
         self._update_styles()
@@ -128,13 +136,18 @@ class StepperBar(QWidget):
                 btn.setStyleSheet(
                     f"""
                     QPushButton {{
-                        background-color: {COLORS.bg_app};
-                        color: {COLORS.text_secondary};
-                        border: 1px solid {COLORS.border};
+                        background-color: #F8FAFC;
+                        color: #475569;
+                        border: 1.5px solid {COLORS.border};
                         border-radius: 16px;
                         padding: 6px 14px;
                         font-weight: 500;
                         font-size: 12px;
+                    }}
+                    QPushButton:hover {{
+                        background-color: #F1F5F9;
+                        border-color: #94A3B8;
+                        color: {COLORS.text_primary};
                     }}
                     """
                 )
