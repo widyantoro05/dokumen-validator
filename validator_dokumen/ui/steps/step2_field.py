@@ -362,12 +362,17 @@ class Step2Field(QWidget):
         row_pdf = QHBoxLayout()
         row_pdf.setSpacing(10)
 
-        row_pdf.addWidget(QLabel("<b>Pilih Contoh Dokumen PDF:</b>"))
+        lbl_pdf = QLabel("<b>Pilih Contoh Dokumen PDF:</b>")
+        lbl_pdf.setStyleSheet(f"font-size: 13px; color: {COLORS.text_primary};")
+        row_pdf.addWidget(lbl_pdf)
+
         self._combo_pdfs = QComboBox()
+        self._combo_pdfs.setMinimumHeight(38)
         self._combo_pdfs.currentIndexChanged.connect(self._on_pdf_selected)
         row_pdf.addWidget(self._combo_pdfs, stretch=1)
 
         btn_tambah_pdf = SecondaryButton("+ Tambah Berkas PDF...")
+        btn_tambah_pdf.setMinimumHeight(38)
         btn_tambah_pdf.clicked.connect(self._tambah_pdf)
         row_pdf.addWidget(btn_tambah_pdf)
 

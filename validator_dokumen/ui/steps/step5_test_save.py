@@ -176,6 +176,7 @@ class Step5TestSave(QWidget):
         form_meta.setSpacing(10)
 
         self._edit_nama_profil = QLineEdit("Profil Validasi Baru")
+        self._edit_nama_profil.setMinimumHeight(38)
         self._edit_nama_profil.textChanged.connect(self._on_nama_changed)
         form_meta.addRow("<b>Nama Profil:</b>", self._edit_nama_profil)
 
@@ -185,6 +186,7 @@ class Step5TestSave(QWidget):
         form_meta.addRow("Deskripsi:", self._edit_deskripsi)
 
         self._edit_id = QLineEdit()
+        self._edit_id.setMinimumHeight(38)
         self._edit_id.setReadOnly(True)
         form_meta.addRow("ID Profil:", self._edit_id)
 

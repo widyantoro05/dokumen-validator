@@ -170,41 +170,50 @@ class Step1Recap(QWidget):
         # Card Konfigurasi Berkas
         cfg_card = Card()
         cfg_layout = QVBoxLayout()
-        cfg_layout.setSpacing(12)
+        cfg_layout.setSpacing(14)
 
-        # Baris Pemilihan Berkas
-        row_file = QHBoxLayout()
+        # Baris Pemilihan Berkas dengan LabeledField
+        w_file = QWidget()
+        row_file = QHBoxLayout(w_file)
+        row_file.setContentsMargins(0, 0, 0, 0)
         row_file.setSpacing(8)
 
         self._edit_path = QLineEdit()
+        self._edit_path.setMinimumHeight(38)
         self._edit_path.setPlaceholderText("Pilih berkas Excel (.xlsx) atau PDF tabel...")
         self._edit_path.setReadOnly(True)
         row_file.addWidget(self._edit_path, stretch=1)
 
         btn_browse = SecondaryButton("Pilih Berkas...")
+        btn_browse.setMinimumHeight(38)
         btn_browse.clicked.connect(self._browse_recap)
         row_file.addWidget(btn_browse)
 
-        cfg_layout.addLayout(row_file)
+        field_file = LabeledField("Berkas Rekapan Acuan", w_file, required=True)
+        cfg_layout.addWidget(field_file)
 
-        # Opsi Lanjutan: Sheet & Baris Header
+        # Opsi Lanjutan: Sheet & Baris Header & Tombol Muat
         row_options = QHBoxLayout()
         row_options.setSpacing(16)
 
         self._combo_sheet = QComboBox()
         self._combo_sheet.setEnabled(False)
+        self._combo_sheet.setMinimumHeight(38)
         field_sheet = LabeledField("Sheet Excel", self._combo_sheet)
         row_options.addWidget(field_sheet, stretch=2)
 
         self._spin_header = QSpinBox()
         self._spin_header.setRange(1, 100)
         self._spin_header.setValue(1)
+        self._spin_header.setMinimumHeight(38)
         field_header = LabeledField("Baris Header (Nomor Baris)", self._spin_header)
         row_options.addWidget(field_header, stretch=1)
 
         self._btn_load = PrimaryButton("Muat Tabel Rekapan")
+        self._btn_load.setMinimumHeight(38)
         self._btn_load.clicked.connect(self._muat_rekap)
-        row_options.addWidget(self._btn_load, stretch=1, alignment=Qt.AlignmentFlag.AlignBottom)
+        field_load = LabeledField("Aksi", self._btn_load)
+        row_options.addWidget(field_load, stretch=1)
 
         cfg_layout.addLayout(row_options)
         cfg_card.layout().addLayout(cfg_layout)

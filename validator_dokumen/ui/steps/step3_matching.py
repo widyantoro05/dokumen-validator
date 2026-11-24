@@ -386,22 +386,29 @@ class Step3Matching(QWidget):
         row_skema = QHBoxLayout()
         row_skema.setSpacing(10)
 
-        row_skema.addWidget(QLabel("<b>Pilih Skema Pencocokan:</b>"))
+        lbl_skema = QLabel("<b>Pilih Skema Pencocokan:</b>")
+        lbl_skema.setStyleSheet(f"font-size: 13px; color: {COLORS.text_primary};")
+        row_skema.addWidget(lbl_skema)
+
         self._combo_skema = QComboBox()
+        self._combo_skema.setMinimumHeight(38)
         self._combo_skema.currentIndexChanged.connect(self._on_skema_selected)
         row_skema.addWidget(self._combo_skema, stretch=2)
 
         btn_tambah_skema = SecondaryButton("+ Tambah Skema")
+        btn_tambah_skema.setMinimumHeight(38)
         btn_tambah_skema.clicked.connect(self._tambah_skema)
         row_skema.addWidget(btn_tambah_skema)
 
         btn_hapus_skema = DangerButton("Hapus Skema")
+        btn_hapus_skema.setMinimumHeight(38)
         btn_hapus_skema.clicked.connect(self._hapus_skema)
         row_skema.addWidget(btn_hapus_skema)
 
         row_skema.addStretch()
 
         btn_saran = PrimaryButton("🪄 Saran Pemetaan Otomatis")
+        btn_saran.setMinimumHeight(38)
         btn_saran.clicked.connect(self._sarankan_pemetaan)
         row_skema.addWidget(btn_saran)
 
@@ -413,11 +420,13 @@ class Step3Matching(QWidget):
         layout_param.setSpacing(16)
 
         self._edit_nama_skema = QLineEdit("Skema Utama")
+        self._edit_nama_skema.setMinimumHeight(38)
         self._edit_nama_skema.textChanged.connect(self._on_nama_skema_changed)
         f_nama = LabeledField("Nama Skema", self._edit_nama_skema)
         layout_param.addWidget(f_nama, stretch=2)
 
         self._spin_k = QSpinBox()
+        self._spin_k.setMinimumHeight(38)
         self._spin_k.setRange(1, 100)
         self._spin_k.setValue(1)
         self._spin_k.valueChanged.connect(self._on_k_changed)
@@ -427,12 +436,14 @@ class Step3Matching(QWidget):
         w_k = QWidget()
         box_k = QHBoxLayout(w_k)
         box_k.setContentsMargins(0, 0, 0, 0)
+        box_k.setSpacing(8)
         box_k.addWidget(self._spin_k)
         box_k.addWidget(self._lbl_total_n)
         f_k = LabeledField("Ambang Cocok (K dari N)", w_k)
         layout_param.addWidget(f_k, stretch=2)
 
         self._combo_perlakuan = QComboBox()
+        self._combo_perlakuan.setMinimumHeight(38)
         self._combo_perlakuan.addItem("Tandai VALID (dengan catatan)", JikaAdaTidakCocok.VALID_CATATAN)
         self._combo_perlakuan.addItem("Tandai PERLU DICEK", JikaAdaTidakCocok.PERLU_DICEK)
         self._combo_perlakuan.addItem("Tandai TIDAK VALID", JikaAdaTidakCocok.TIDAK_VALID)

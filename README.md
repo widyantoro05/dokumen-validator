@@ -202,4 +202,4 @@ Hasil kompilasi akan berada di folder `dist\ValidatorDokumen\ValidatorDokumen.ex
 ---
 
 ## 📄 Lisensi
-Hak Cipta © 2026 Tim Pengembang Validator Dokumen. Seluruh hak cipta dilindungi undang-undang.
+Hak Cipta © 2026 Widy. Seluruh hak cipta dilindungi undang-undang.
