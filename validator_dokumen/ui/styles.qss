@@ -1,0 +1,5 @@
+/* styles.qss - Digenerate dari ui/theme.py */
+QMainWindow, QDialog {
+    background-color: #F5F7FA;
+    font-family: "Segoe UI", sans-serif;
+}

@@ -1,0 +1,100 @@
+{
+  "kasus": [
+    {
+      "nama": "kunci_tunggal_cocok",
+      "baris_rekap": [
+        {
+          "id": "b1",
+          "data": {
+            "kode": "K001",
+            "nama": "Perusahaan A"
+          }
+        }
+      ],
+      "field_dokumen": [
+        {
+          "nama": "f_kode",
+          "nilai": "K001"
+        }
+      ],
+      "pasangan": [
+        {
+          "kolom": "kode",
+          "field": "f_kode",
+          "mode": "Persis setelah normalisasi"
+        }
+      ],
+      "k": 1,
+      "status_diharapkan": "VALID"
+    },
+    {
+      "nama": "kunci_tunggal_tidak_cocok",
+      "baris_rekap": [
+        {
+          "id": "b1",
+          "data": {
+            "kode": "K001"
+          }
+        }
+      ],
+      "field_dokumen": [
+        {
+          "nama": "f_kode",
+          "nilai": "K999"
+        }
+      ],
+      "pasangan": [
+        {
+          "kolom": "kode",
+          "field": "f_kode",
+          "mode": "Persis setelah normalisasi"
+        }
+      ],
+      "k": 1,
+      "status_diharapkan": "TIDAK_VALID"
+    },
+    {
+      "nama": "kombinasi_kunci_cocok",
+      "baris_rekap": [
+        {
+          "id": "b1",
+          "data": {
+            "kode": "K001",
+            "nama": "Perusahaan A"
+          }
+        },
+        {
+          "id": "b2",
+          "data": {
+            "kode": "K002",
+            "nama": "Perusahaan B"
+          }
+        }
+      ],
+      "field_dokumen": [
+        {
+          "nama": "f_kode",
+          "nilai": "K001"
+        },
+        {
+          "nama": "f_nama",
+          "nilai": "Perusahaan A"
+        }
+      ],
+      "pasangan": [
+        {
+          "kolom": "kode",
+          "field": "f_kode",
+          "mode": "Persis setelah normalisasi"
+        },
+        {
+          "kolom": "nama",
+          "field": "f_nama",
+          "mode": "Persis setelah normalisasi"
+        }
+      ],
+      "k": 2,
+      "status_diharapkan": "VALID"
+    }
+  ]
+}

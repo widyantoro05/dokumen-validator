@@ -1,0 +1,287 @@
+{
+  "schema_version": 1,
+  "id": "37004883-caec-4fb7-842a-51b6c9e42964",
+  "nama": "Profil Contoh - Izin Usaha (6 dari 8)",
+  "deskripsi": "Profil contoh untuk validasi izin usaha. 2 pasangan WAJIB (No Izin, NIB), 6 dari 8 total.",
+  "field_dokumen": [
+    {
+      "id": "b5a14704-3d10-4c7b-8502-0af30a1b2b7f",
+      "nama": "nomor_izin",
+      "cara_ambil": "label",
+      "parameter": {
+        "label": "Nomor Izin",
+        "sinonim": [
+          "No. Izin",
+          "No Izin",
+          "Nomor"
+        ]
+      },
+      "wajib": false,
+      "deskripsi": ""
+    },
+    {
+      "id": "4b7e3494-fe07-4141-94d5-9593eb17d4d6",
+      "nama": "nib",
+      "cara_ambil": "pola",
+      "parameter": {
+        "pola": "NIB[:\\s]+(\\d{13})"
+      },
+      "wajib": false,
+      "deskripsi": ""
+    },
+    {
+      "id": "87bd5346-504f-4f82-8d05-216a132237d0",
+      "nama": "nama_perusahaan",
+      "cara_ambil": "label",
+      "parameter": {
+        "label": "Nama Perusahaan",
+        "sinonim": [
+          "Nama Usaha",
+          "Perusahaan"
+        ]
+      },
+      "wajib": false,
+      "deskripsi": ""
+    },
+    {
+      "id": "e9a9257c-035f-4943-9f3b-eb1cdd9ac7cc",
+      "nama": "jenis_usaha",
+      "cara_ambil": "label",
+      "parameter": {
+        "label": "Jenis Usaha",
+        "sinonim": [
+          "Bidang Usaha",
+          "Kegiatan"
+        ]
+      },
+      "wajib": false,
+      "deskripsi": ""
+    },
+    {
+      "id": "7f409e61-f3a1-4be0-b628-98fc89de5755",
+      "nama": "alamat",
+      "cara_ambil": "label",
+      "parameter": {
+        "label": "Alamat",
+        "sinonim": [
+          "Lokasi",
+          "Tempat Usaha"
+        ]
+      },
+      "wajib": false,
+      "deskripsi": ""
+    },
+    {
+      "id": "78d558b3-378a-420c-9996-ab0c783af4d8",
+      "nama": "tanggal_terbit",
+      "cara_ambil": "pola",
+      "parameter": {
+        "pola": "(?:diterbitkan|terbit|tanggal)[:\\s]+(\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4})"
+      },
+      "wajib": false,
+      "deskripsi": ""
+    },
+    {
+      "id": "be08e9ed-dfb2-4c67-8c81-d1c3032bc791",
+      "nama": "tanggal_berakhir",
+      "cara_ambil": "pola",
+      "parameter": {
+        "pola": "(?:berlaku\\s+hingga|berakhir|masa\\s+berlaku)[:\\s]+(\\d{1,2}[/\\-]\\d{1,2}[/\\-]\\d{4})"
+      },
+      "wajib": false,
+      "deskripsi": ""
+    },
+    {
+      "id": "457bcc4a-7efa-460a-9776-84be1cc1c4ba",
+      "nama": "npwp",
+      "cara_ambil": "pola",
+      "parameter": {
+        "pola": "NPWP[:\\s]+(\\d{2}\\.\\d{3}\\.\\d{3}\\.\\d-\\d{3}\\.\\d{3})"
+      },
+      "wajib": false,
+      "deskripsi": ""
+    }
+  ],
+  "skema_pencocokan": [
+    {
+      "id": "f1f01bb1-8391-4efb-a133-9545da9a8bac",
+      "nama": "Skema Utama (6 dari 8)",
+      "pasangan": [
+        {
+          "id": "a982ae5c-c7dd-4656-9e77-63818f758edd",
+          "kolom_rekap": "No Izin",
+          "field_dokumen": "nomor_izin",
+          "peran": "Wajib",
+          "mode": "Persis setelah normalisasi",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": true,
+            "abaikan_nol_depan": false,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 90.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": "Nomor izin tidak cocok dengan rekapan."
+        },
+        {
+          "id": "989dddf9-e55c-4600-ae1f-f7df87cc716f",
+          "kolom_rekap": "NIB",
+          "field_dokumen": "nib",
+          "peran": "Wajib",
+          "mode": "Persis setelah normalisasi",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": true,
+            "abaikan_nol_depan": false,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 90.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": ""
+        },
+        {
+          "id": "b55736e2-e059-4ca9-9f31-373cbdc0aaa5",
+          "kolom_rekap": "Nama Perusahaan",
+          "field_dokumen": "nama_perusahaan",
+          "peran": "Poin",
+          "mode": "Mirip",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": true,
+            "abaikan_nol_depan": false,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 85.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": ""
+        },
+        {
+          "id": "59d9d8fb-5d26-41cf-b6e7-0fb2621a197e",
+          "kolom_rekap": "Jenis Usaha",
+          "field_dokumen": "jenis_usaha",
+          "peran": "Poin",
+          "mode": "Mengandung",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": true,
+            "abaikan_nol_depan": false,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 90.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": ""
+        },
+        {
+          "id": "45b0c29c-7db3-49c5-973f-bae4c0d8457d",
+          "kolom_rekap": "Alamat",
+          "field_dokumen": "alamat",
+          "peran": "Poin",
+          "mode": "Mirip",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": true,
+            "abaikan_nol_depan": false,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 80.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": ""
+        },
+        {
+          "id": "02273605-646f-41a6-96e2-5245bc113dd0",
+          "kolom_rekap": "Tanggal Terbit",
+          "field_dokumen": "tanggal_terbit",
+          "peran": "Poin",
+          "mode": "Tanggal sama persis",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": true,
+            "abaikan_nol_depan": false,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 90.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": ""
+        },
+        {
+          "id": "578cfbc3-f289-4264-bd00-d921ea8aeee6",
+          "kolom_rekap": "Tanggal Berakhir",
+          "field_dokumen": "tanggal_berakhir",
+          "peran": "Poin",
+          "mode": "Tanggal dokumen >= rekapan",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": true,
+            "abaikan_nol_depan": false,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 90.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": ""
+        },
+        {
+          "id": "0d16494c-61dc-4a6a-961c-6be14b39fdc6",
+          "kolom_rekap": "NPWP",
+          "field_dokumen": "npwp",
+          "peran": "Poin",
+          "mode": "Persis setelah normalisasi",
+          "normalisasi": {
+            "abaikan_huruf_besar": true,
+            "abaikan_spasi": true,
+            "abaikan_tanda_baca": false,
+            "abaikan_awalan_badan_usaha": false,
+            "abaikan_nol_depan": true,
+            "koreksi_ocr": false,
+            "hapus_karakter_tak_terlihat": true
+          },
+          "bobot": 1.0,
+          "ambang_mirip": 90.0,
+          "toleransi_numerik": 0.0,
+          "pesan_kesalahan_kustom": ""
+        }
+      ],
+      "k_minimum": 6,
+      "aktif": true,
+      "gunakan_bobot": false,
+      "jika_ada_tidak_cocok": "perlu_dicek",
+      "min_selisih_skor": 1
+    }
+  ],
+  "aturan_field": [],
+  "kondisi_jika_maka": [],
+  "pengaturan_ocr": {
+    "lang": "ind+eng",
+    "dpi": 300,
+    "confidence_min": 80
+  },
+  "dibuat_pada": "2026-11-24T06:48:40.247205+00:00",
+  "diubah_pada": "2026-11-24T06:48:40.247205+00:00"
+}
